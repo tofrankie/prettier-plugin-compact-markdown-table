@@ -1,0 +1,9 @@
+tabWidth = 4
+printWidth = 100
+embeddedLanguageFormatting = "off"
+plugins = ['prettier-plugin-compact-markdown-table']
+
+[[overrides]]
+files = ["*.yaml", "*.yml", "*.json", "*.toml"]
+[overrides.options]
+tabWidth = 2

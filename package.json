@@ -1,0 +1,40 @@
+{
+  "name": "prettier-plugin-compact-markdown-table",
+  "version": "0.1.0",
+  "description": "Prettier plugin for compact markdown tables without cell padding or alignment",
+  "type": "module",
+  "exports": "./src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "format": "prettier --write ./src",
+    "format:check": "prettier --check ./src"
+  },
+  "keywords": [
+    "prettier-plugin",
+    "markdown",
+    "markdown-table",
+    "token-optimization",
+    "prompt-engineering",
+    "formatter"
+  ],
+  "author": "Yulong Ming <i@myl7.org> (https://myl7.org)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myl7/prettier-plugin-compact-markdown-table.git"
+  },
+  "homepage": "https://github.com/myl7/prettier-plugin-compact-markdown-table",
+  "bugs": {
+    "url": "https://github.com/myl7/prettier-plugin-compact-markdown-table/issues"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.2",
+    "vitest": "^4.1.4"
+  }
+}
