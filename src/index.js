@@ -1,4 +1,5 @@
 import * as prettierMarkdownPlugin from 'prettier/plugins/markdown'
+import { TABLE_LAYOUT } from './constants.js'
 import options from './options.js'
 import { printCompactTable } from './print-compact-table.js'
 
@@ -14,8 +15,12 @@ export const printers = {
   mdast: {
     ...originalPrinter,
     print(path, options, print) {
-      if (path.node.type === 'table' && options.tableLayout === 'compact') {
-        return printCompactTable(path, options, print)
+      if (
+        path.node.type === 'table' &&
+        (options.tableLayout === TABLE_LAYOUT.COMPACT ||
+          options.tableLayout === TABLE_LAYOUT.COMPACT_NO_PADDING)
+      ) {
+        return printCompactTable(path, options, print, options.tableLayout === TABLE_LAYOUT.COMPACT)
       }
       return originalPrinter.print(path, options, print)
     },

@@ -1,12 +1,14 @@
 # prettier-plugin-compact-markdown-table
 
-Prettier plugin for compact markdown tables without cell padding or alignment
+> Forked from [myl7/prettier-plugin-compact-markdown-table](https://github.com/myl7/prettier-plugin-compact-markdown-table)
+
+Prettier plugin for compact markdown tables without column alignment
 
 Resolves [prettier/prettier#12074](https://github.com/prettier/prettier/issues/12074), [prettier/prettier#14722](https://github.com/prettier/prettier/issues/14722), [prettier/prettier#16954](https://github.com/prettier/prettier/issues/16954).
 
 ## Features
 
-- **Compact tables**: Strip all whitespace padding or alignment and reduce separators for table cells.
+- **Compact tables**: Reduce separators and avoid column alignment while preserving readable cell spacing by default.
 - **Save LLM tokens**: A 5-column, 10-row table saves ~21% of table tokens and ~32% of characters with compact formatting.
 - **Fit character limits**: Useful for submissions with strict character budgets, e.g., OpenReview rebuttals capped at 5000 characters.
 
@@ -18,25 +20,21 @@ Resolves [prettier/prettier#12074](https://github.com/prettier/prettier/issues/1
 
 Install the plugin alongside Prettier:
 
-```sh
-# npm
-npm install -D prettier-plugin-compact-markdown-table
-
-# pnpm
-pnpm add -D prettier-plugin-compact-markdown-table
+```bash
+npm install @tofrankie/prettier-plugin-compact-markdown-table -D
 ```
 
-Add the plugin to your `.prettierrc`:
+Add the plugin to your `prettier.config.js`:
 
-```json
-{
-  "plugins": ["prettier-plugin-compact-markdown-table"]
+```js
+export default {
+  plugins: ['@tofrankie/prettier-plugin-compact-markdown-table'],
 }
 ```
 
 Then format as usual:
 
-```sh
+```bash
 prettier --write "**/*.md"
 ```
 
@@ -52,36 +50,37 @@ Before:
 After:
 
 ```md
-|Name|Age|City|
-|-|-|-|
-|Alice|30|NYC|
-|Bob|25|LA|
+| Name | Age | City |
+| --- | --- | --- |
+| Alice | 30 | NYC |
+| Bob | 25 | LA |
 ```
 
 ## Config
 
 ### `tableLayout`
 
-|Value|Description|
-|-|-|
-|`"compact"` (default)|No cell padding, minimal separators.|
-|`"aligned"`|Pad cells to align columns (Prettier default).|
+| Value | Description |
+| :-- | :-- |
+| `compact` (default) | Compact layout with one space around each cell. |
+| `compact-no-padding` | Compact layout without cell padding. |
+| `aligned` | Pad cells to align columns (Prettier default). |
 
-Set in `.prettierrc`:
+Set in `prettier.config.js`:
 
-```json
-{
-  "tableLayout": "compact"
+```js
+export default {
+  tableLayout: 'compact'
 }
 ```
 
 Or pass via CLI:
 
-```sh
+```bash
 prettier --table-layout aligned --write "**/*.md"
 ```
 
-## Licenses
+## License
 
 Copyright (C) 2026 Yulong Ming <i@myl7.org>
 

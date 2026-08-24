@@ -1,12 +1,24 @@
+import { TABLE_LAYOUT } from './constants.js'
+
 const options = {
   tableLayout: {
     type: 'choice',
     category: 'Markdown',
-    default: 'compact',
+    default: TABLE_LAYOUT.COMPACT,
     description: 'Table formatting style.',
     choices: [
-      { value: 'compact', description: 'No cell padding, minimal separators.' },
-      { value: 'aligned', description: 'Pad cells to align columns (Prettier default).' },
+      {
+        value: TABLE_LAYOUT.COMPACT,
+        description: 'One space of cell padding and minimal separators.',
+      },
+      {
+        value: TABLE_LAYOUT.COMPACT_NO_PADDING,
+        description: 'No cell padding and minimal separators.',
+      },
+      {
+        value: TABLE_LAYOUT.ALIGNED,
+        description: 'Pad cells to align columns (Prettier default).',
+      },
     ],
   },
 }

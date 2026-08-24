@@ -1,18 +1,18 @@
 {
-  "name": "prettier-plugin-compact-markdown-table",
+  "name": "@tofrankie/prettier-plugin-compact-markdown-table",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@10.34.0",
   "description": "Prettier plugin for compact markdown tables without cell padding or alignment",
-  "author": "Yulong Ming <i@myl7.org> (https://myl7.org)",
+  "author": "Frankie <1426203851@qq.com>",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/myl7/prettier-plugin-compact-markdown-table",
+  "homepage": "https://github.com/tofrankie/prettier-plugin-compact-markdown-table",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/myl7/prettier-plugin-compact-markdown-table.git"
+    "url": "git+https://github.com/tofrankie/prettier-plugin-compact-markdown-table.git"
   },
   "bugs": {
-    "url": "https://github.com/myl7/prettier-plugin-compact-markdown-table/issues"
+    "url": "https://github.com/tofrankie/prettier-plugin-compact-markdown-table/issues"
   },
   "keywords": [
     "prettier-plugin",
@@ -24,6 +24,7 @@
   ],
   "exports": "./src/index.js",
   "files": [
+    "CHANGELOG.md",
     "src"
   ],
   "scripts": {
@@ -31,12 +32,14 @@
     "lint": "pnpm eslint && pnpm format",
     "eslint": "eslint . --fix",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "github:release": "tfr"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
   },
   "devDependencies": {
+    "@tofrankie/action": "^0.0.9",
     "@tofrankie/eslint": "^0.5.0",
     "@tofrankie/prettier": "^0.2.0",
     "eslint": "^10.9.0",

@@ -1,5 +1,6 @@
 import * as prettier from 'prettier'
-import { expect } from 'vitest'
+import { expect, it } from 'vitest'
+import { TABLE_LAYOUT } from '../src/constants.js'
 import * as plugin from '../src/index.js'
 
 async function format(input, options = {}) {
@@ -10,7 +11,21 @@ async function format(input, options = {}) {
   })
 }
 
-it('basic compact table', async () => {
+it('default compact table keeps one space around cells', async () => {
+  const input = `| Name  | Age | City |
+| ----- | --- | ---- |
+| Alice | 30  | NYC  |
+| Bob   | 25  | LA   |
+`
+  const expected = `| Name | Age | City |
+| --- | --- | --- |
+| Alice | 30 | NYC |
+| Bob | 25 | LA |
+`
+  expect(await format(input)).toBe(expected)
+})
+
+it('compact-no-padding table removes cell padding', async () => {
   const input = `| Name  | Age | City |
 | ----- | --- | ---- |
 | Alice | 30  | NYC  |
@@ -21,7 +36,7 @@ it('basic compact table', async () => {
 |Alice|30|NYC|
 |Bob|25|LA|
 `
-  expect(await format(input)).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
 })
 
 it('aligned table preserves Prettier default', async () => {
@@ -35,10 +50,10 @@ it('aligned table preserves Prettier default', async () => {
 | Alice | 30  | NYC  |
 | Bob   | 25  | LA   |
 `
-  expect(await format(input, { tableLayout: 'aligned' })).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.ALIGNED })).toBe(expected)
 })
 
-it('alignment markers in compact mode', async () => {
+it('alignment markers in compact-no-padding mode', async () => {
   const input = `| Name | Age | City |
 | :--- | :---: | ---: |
 | Alice | 30 | NYC |
@@ -47,10 +62,22 @@ it('alignment markers in compact mode', async () => {
 |:-|:-:|-:|
 |Alice|30|NYC|
 `
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
+})
+
+it('alignment markers in compact mode', async () => {
+  const input = `| Name | Age | City |
+| :--- | :---: | ---: |
+| Alice | 30 | NYC |
+`
+  const expected = `| Name | Age | City |
+| :-- | :-: | --: |
+| Alice | 30 | NYC |
+`
   expect(await format(input)).toBe(expected)
 })
 
-it('empty cells in compact mode', async () => {
+it('empty cells in compact-no-padding mode', async () => {
   const input = `| A | B |
 | - | - |
 |   | x |
@@ -58,6 +85,18 @@ it('empty cells in compact mode', async () => {
   const expected = `|A|B|
 |-|-|
 ||x|
+`
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
+})
+
+it('empty cells in compact mode', async () => {
+  const input = `| A | B |
+| - | - |
+|   | x |
+`
+  const expected = `| A | B |
+| --- | --- |
+|  | x |
 `
   expect(await format(input)).toBe(expected)
 })
@@ -71,7 +110,7 @@ it('CJK content handled correctly', async () => {
 |-|-|
 |Alice|東京|
 `
-  expect(await format(input)).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
 })
 
 it('single column table', async () => {
@@ -83,7 +122,7 @@ it('single column table', async () => {
 |-|
 |b|
 `
-  expect(await format(input)).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
 })
 
 it('table with inline formatting', async () => {
@@ -99,7 +138,7 @@ it('table with inline formatting', async () => {
 |italic|_text_|
 |code|\`text\`|
 `
-  expect(await format(input)).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
 })
 
 it('escaped pipes inside cells', async () => {
@@ -111,7 +150,7 @@ it('escaped pipes inside cells', async () => {
 |-|-|
 |a\\|b|c|
 `
-  expect(await format(input)).toBe(expected)
+  expect(await format(input, { tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING })).toBe(expected)
 })
 
 it('mdx parser produces compact table', async () => {
@@ -123,7 +162,12 @@ it('mdx parser produces compact table', async () => {
 |-|-|
 |1|2|
 `
-  expect(await format(input, { parser: 'mdx' })).toBe(expected)
+  expect(
+    await format(input, {
+      parser: 'mdx',
+      tableLayout: TABLE_LAYOUT.COMPACT_NO_PADDING,
+    })
+  ).toBe(expected)
 })
 
 it('aligned with proseWrap never and wide table triggers compaction', async () => {
@@ -134,7 +178,7 @@ it('aligned with proseWrap never and wide table triggers compaction', async () =
 | ${values.join(' | ')} |
 `
   const result = await format(input, {
-    tableLayout: 'aligned',
+    tableLayout: TABLE_LAYOUT.ALIGNED,
     proseWrap: 'never',
     printWidth: 40,
   })
