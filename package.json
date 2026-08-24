@@ -1,7 +1,7 @@
 {
   "name": "@tofrankie/prettier-plugin-compact-markdown-table",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@10.34.0",
   "description": "Prettier plugin for compact markdown tables without cell padding or alignment",
   "author": "Frankie <1426203851@qq.com>",
