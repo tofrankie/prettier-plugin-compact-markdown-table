@@ -1,36 +1,36 @@
-import { builders, printer as docPrinter } from "prettier/doc";
+import { builders, printer as docPrinter } from 'prettier/doc'
 
-const { breakParent, hardlineWithoutBreakParent, join } = builders;
-const { printDocToString } = docPrinter;
+const { breakParent, hardlineWithoutBreakParent, join } = builders
+const { printDocToString } = docPrinter
 
 function printCompactTable(path, options, print) {
-    const { node } = path;
+  const { node } = path
 
-    const contents = path.map(
-        () => path.map(() => printDocToString(print(), options).formatted, "children"),
-        "children",
-    );
+  const contents = path.map(
+    () => path.map(() => printDocToString(print(), options).formatted, 'children'),
+    'children'
+  )
 
-    const rows = [
-        contents[0],
-        printSeparator(node, options, contents[0].length),
-        ...contents.slice(1),
-    ].map((columns) => `|${columns.join("|")}|`);
+  const rows = [
+    contents[0],
+    printSeparator(node, options, contents[0].length),
+    ...contents.slice(1),
+  ].map(columns => `|${columns.join('|')}|`)
 
-    return [breakParent, join(hardlineWithoutBreakParent, rows)];
+  return [breakParent, join(hardlineWithoutBreakParent, rows)]
 }
 
 function printSeparator(node, options, headerLength) {
-    return node.align
-        .map((align, index) => {
-            if (options.parser !== "mdx" && index >= headerLength) {
-                return null;
-            }
-            const left = align === "center" || align === "left" ? ":" : "";
-            const right = align === "center" || align === "right" ? ":" : "";
-            return `${left}-${right}`;
-        })
-        .filter(Boolean);
+  return node.align
+    .map((align, index) => {
+      if (options.parser !== 'mdx' && index >= headerLength) {
+        return null
+      }
+      const left = align === 'center' || align === 'left' ? ':' : ''
+      const right = align === 'center' || align === 'right' ? ':' : ''
+      return `${left}-${right}`
+    })
+    .filter(Boolean)
 }
 
-export { printCompactTable };
+export { printCompactTable }
