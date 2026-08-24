@@ -1,6 +1,6 @@
 # prettier-plugin-compact-markdown-table
 
-> Forked from [myl7/prettier-plugin-compact-markdown-table](https://github.com/myl7/prettier-plugin-compact-markdown-table)
+> Forked from [myl7/prettier-plugin-compact-markdown-table](https://github.com/myl7/prettier-plugin-compact-markdown-table/tree/v0.1.0) v0.1.0
 
 Prettier plugin for compact markdown tables without column alignment
 
