@@ -21,7 +21,7 @@ Resolves [prettier/prettier#12074](https://github.com/prettier/prettier/issues/1
 Install the plugin alongside Prettier:
 
 ```bash
-npm install @tofrankie/prettier-plugin-compact-markdown-table -D
+npm install prettier @tofrankie/prettier-plugin-compact-markdown-table -D
 ```
 
 Add the plugin to your `prettier.config.js`:
