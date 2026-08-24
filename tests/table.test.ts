@@ -1,15 +1,59 @@
+import plugin, * as pluginModule from '@tofrankie/prettier-plugin-compact-markdown-table'
 import * as prettier from 'prettier'
 import { expect, it } from 'vitest'
-import { TABLE_LAYOUT } from '../src/constants.js'
-import * as plugin from '../src/index.js'
+import { TABLE_LAYOUT } from '../src/constants'
 
-async function format(input, options = {}) {
+type PluginReference = prettier.Plugin | string
+
+async function format(
+  input: string,
+  options: Record<string, unknown> = {},
+  plugins: PluginReference[] = [plugin]
+) {
   return prettier.format(input, {
     parser: 'markdown',
-    plugins: [plugin],
+    plugins,
     ...options,
   })
 }
+
+it('supports a default plugin export', async () => {
+  expect(plugin).toEqual({
+    options: pluginModule.options,
+    parsers: pluginModule.parsers,
+    printers: pluginModule.printers,
+  })
+})
+
+it('supports a namespace plugin import', async () => {
+  const result = await format(
+    `| A | B |
+| - | - |
+| 1 | 2 |
+`,
+    {},
+    [pluginModule]
+  )
+  expect(result).toBe(`| A | B |
+| --- | --- |
+| 1 | 2 |
+`)
+})
+
+it('supports a plugin package name', async () => {
+  const result = await format(
+    `| A | B |
+| - | - |
+| 1 | 2 |
+`,
+    {},
+    ['@tofrankie/prettier-plugin-compact-markdown-table']
+  )
+  expect(result).toBe(`| A | B |
+| --- | --- |
+| 1 | 2 |
+`)
+})
 
 it('default compact table keeps one space around cells', async () => {
   const input = `| Name  | Age | City |

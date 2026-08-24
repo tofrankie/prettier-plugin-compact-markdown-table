@@ -32,6 +32,16 @@ export default {
 }
 ```
 
+Or import the default plugin object:
+
+```js
+import compactMarkdownTablePlugin from '@tofrankie/prettier-plugin-compact-markdown-table'
+
+export default {
+  plugins: [compactMarkdownTablePlugin],
+}
+```
+
 Then format as usual:
 
 ```bash

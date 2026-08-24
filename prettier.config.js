@@ -1,5 +1,5 @@
 import { base } from '@tofrankie/prettier'
-import * as compactMarkdownTablePlugin from './src/index.js'
+import compactMarkdownTablePlugin from '@tofrankie/prettier-plugin-compact-markdown-table'
 
 export default {
   ...base,

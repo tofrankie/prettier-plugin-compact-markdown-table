@@ -1,0 +1,17 @@
+{
+  "extends": "@tofrankie/tsconfig/vitest.node.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@tofrankie/prettier-plugin-compact-markdown-table": ["./src/index.ts"]
+    }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ],
+  "include": ["tests"]
+}

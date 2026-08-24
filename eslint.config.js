@@ -2,10 +2,10 @@ import { defineConfig } from '@tofrankie/eslint'
 
 export default defineConfig(
   {
-    typescript: false,
+    typescript: true,
   },
   {
-    files: ['test/**/*.js'],
+    files: ['tests/**/*.ts'],
     languageOptions: {
       globals: {
         it: true,

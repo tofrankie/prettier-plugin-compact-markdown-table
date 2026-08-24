@@ -1,6 +1,7 @@
-import { TABLE_LAYOUT } from './constants.js'
+import type { SupportOptions } from 'prettier'
+import { TABLE_LAYOUT } from './constants'
 
-const options = {
+const options: SupportOptions = {
   tableLayout: {
     type: 'choice',
     category: 'Markdown',
